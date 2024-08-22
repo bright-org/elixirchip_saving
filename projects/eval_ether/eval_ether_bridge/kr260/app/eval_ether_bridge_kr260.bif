@@ -1,0 +1,5 @@
+all:
+{
+    eval_ether_bridge_kr260.bit
+}
+

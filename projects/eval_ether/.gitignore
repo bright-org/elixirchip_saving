@@ -1,0 +1,5 @@
+*_tcl.xpr
+*.ila
+
+*_log.txt
+coverage.dat

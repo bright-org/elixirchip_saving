@@ -1,0 +1,5 @@
+all:
+{
+    eval_sram_to_sram_elixir_stage2_kv260.bit
+}
+

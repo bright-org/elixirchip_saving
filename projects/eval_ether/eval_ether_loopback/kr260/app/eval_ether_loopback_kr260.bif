@@ -1,0 +1,5 @@
+all:
+{
+    eval_ether_loopback_kr260.bit
+}
+

@@ -1,0 +1,5 @@
+all:
+{
+    eval_sram_to_sram_array_kv260.bit
+}
+
