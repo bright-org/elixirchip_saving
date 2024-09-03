@@ -16,7 +16,13 @@ set_target_properties(${TARGET} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if(NOT DEFINED ENV{REF_RTL_PATH} OR "$ENV{REF_RTL_PATH}" STREQUAL "")
+    set(RTL_PATH ../../rtl)
+else()
+    set(RTL_PATH $ENV{REF_RTL_PATH})
+endif()
+
 verilate(${TARGET}
-    VERILATOR_ARGS -D__VERILATOR__ -O3 -y ../../rtl # --assert --trace-fst --trace-params --trace-structs --trace-underscore
+    VERILATOR_ARGS -D__VERILATOR__ -O3 -y ${RTL_PATH} # --assert --trace-fst --trace-params --trace-structs --trace-underscore
     SOURCES ./${TARGET}_wrapper.sv
 )

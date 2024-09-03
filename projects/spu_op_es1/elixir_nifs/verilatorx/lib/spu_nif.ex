@@ -3,9 +3,9 @@ defmodule SpuNif do
 
   def load_nifs do
     so =
-      Path.join(Mix.Project.app_path(), "priv")
+      Path.join(Mix.Project.build_path(), "priv")
 
-    :erlang.load_nif(~c"#{so}/spu", 0)
+    :erlang.load_nif(~c"#{so}/acc", 0)
   end
 
   def create(_name) do
