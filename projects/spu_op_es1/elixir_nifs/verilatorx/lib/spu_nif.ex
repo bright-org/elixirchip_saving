@@ -5,7 +5,7 @@ defmodule SpuNif do
     so =
       Path.join(Mix.Project.build_path(), "priv")
 
-    :erlang.load_nif(~c"#{so}/acc", 0)
+    :erlang.load_nif(~c"#{so}/acc_8bit", 0)
   end
 
   def create(_name) do

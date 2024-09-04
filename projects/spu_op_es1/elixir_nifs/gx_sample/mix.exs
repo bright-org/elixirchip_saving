@@ -8,7 +8,10 @@ defmodule GxSample.MixProject do
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      compilers: [:burn, :elixir_make] ++ Mix.compilers()
+      compilers: [:burn, :elixir_make] ++ Mix.compilers(),
+      aliases: [
+        "compile.clean": &clean/1
+      ]
     ]
   end
 
@@ -28,5 +31,12 @@ defmodule GxSample.MixProject do
       {:gx, path: "../gx"},
       {:verilatorx, path: "../verilatorx"}
     ]
+  end
+
+  defp clean(_) do
+    System.cmd("make", ["clean"])
+    |> IO.inspect()
+
+    {:ok, []}
   end
 end

@@ -1,7 +1,7 @@
 #include <erl_nif.h>
 #include <string.h>
 
-#include "elixirchip_es1_spu_op_acc.h"
+#include "wrapper.h"
 
 ErlNifResourceType *SpuAccType;
 
@@ -28,7 +28,7 @@ void destruct_spu_acc(ErlNifEnv *caller_env, void *obj)
 {
     enif_fprintf(stdout, "destruct %p\n", obj);
     SpuAcc *spu_acc = (SpuAcc *)obj;
-    elixirchip_es1_spu_op_acc_delete(spu_acc);
+    elixirchip_es1_spu_op_acc_delete_#{bit}bit(spu_acc);
 }
 
 int load(ErlNifEnv *caller_env, void **priv_data, ERL_NIF_TERM load_info)
@@ -51,7 +51,7 @@ ERL_NIF_TERM create(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
 
     // 生成
     SpuAcc *resource = (SpuAcc *)enif_alloc_resource(SpuAccType, sizeof(SpuAcc));
-    elixirchip_es1_spu_op_acc_create(resource, str);
+    elixirchip_es1_spu_op_acc_create_#{bit}bit(resource, str);
     ERL_NIF_TERM handle = enif_make_resource(env, resource);
 
     // リソースオブジェクトを返す
@@ -68,7 +68,7 @@ ERL_NIF_TERM acc_clk(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
     int s_sub, s_carry, s_data, s_clear, s_valid, m_carry, m_data;
     get_args(env, argv, &s_sub, &s_carry, &s_data, &s_clear, &s_valid, &m_carry, &m_data);
 
-    elixirchip_es1_spu_op_acc(spu, s_sub, s_carry, s_data, s_clear, s_valid, m_carry, m_data);
+    elixirchip_es1_spu_op_acc_#{bit}bit(spu, s_sub, s_carry, s_data, s_clear, s_valid, m_carry, m_data);
     // enif_fprintf(stdout, "test %p\n", m_data);
 
     return enif_make_tuple3(

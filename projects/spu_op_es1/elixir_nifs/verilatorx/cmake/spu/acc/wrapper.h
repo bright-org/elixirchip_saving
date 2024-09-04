@@ -18,9 +18,9 @@ struct SpuAcc {
 
 
 // 作成したライブラリの関数宣言
-void    elixirchip_es1_spu_op_acc_create(SpuAcc *self, const char *name);
-void    elixirchip_es1_spu_op_acc_delete(SpuAcc *self);
-void    elixirchip_es1_spu_op_acc(
+void    elixirchip_es1_spu_op_acc_create_#{bit}bit(SpuAcc *self, const char *name);
+void    elixirchip_es1_spu_op_acc_delete_#{bit}bit(SpuAcc *self);
+void    elixirchip_es1_spu_op_acc_#{bit}bit(
             SpuAcc *self,
             int s_sub,
             int s_carry,

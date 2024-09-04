@@ -5,9 +5,9 @@
 module elixirchip_es1_spu_op_acc_wrapper
         #(
             parameter   int         LATENCY        = 1                              ,   // レイテンシ指定
-            parameter   int         S_DATA_BITS    = 8                              ,   // s_data0 幅指定
+            parameter   int         S_DATA_BITS    = #{bit}                              ,   // s_data0 幅指定
             parameter   type        s_data_t       = logic signed [S_DATA_BITS-1:0] ,   // s_data0 型指定(オプション)
-            parameter   int         M_DATA_BITS    = 8                              ,   // m_data 幅指定
+            parameter   int         M_DATA_BITS    = #{bit}                              ,   // m_data 幅指定
             parameter   type        m_data_t       = logic signed [M_DATA_BITS-1:0] ,   // m_data 型指定(オプション)
             parameter   m_data_t    CLEAR_DATA     = '0                             ,   // m_data クリア値
             parameter   logic       CLEAR_CARRY    = '0                             ,   // m_carryクリア値

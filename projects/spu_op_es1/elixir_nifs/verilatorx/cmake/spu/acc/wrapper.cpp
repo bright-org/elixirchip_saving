@@ -17,10 +17,10 @@ using trace_ptr_t = std::shared_ptr<trace_t>;
 #endif
 
 
-#include "Velixirchip_es1_spu_op_acc_wrapper.h"
-using ModuleType = Velixirchip_es1_spu_op_acc_wrapper;
+#include "Vwrapper.h"
+using ModuleType = Vwrapper;
 
-#include "elixirchip_es1_spu_op_acc.h"
+#include "wrapper.h"
 
 // コンテキスト
 struct SpuAccContext {
@@ -40,7 +40,7 @@ struct SpuAccContext {
 };
 
 // 生成
-void elixirchip_es1_spu_op_acc_create(SpuAcc *self, const char *name)
+void elixirchip_es1_spu_op_acc_create_#{bit}bit(SpuAcc *self, const char *name)
 {
     SpuAccContext* ctx = new SpuAccContext();
 
@@ -86,7 +86,7 @@ void elixirchip_es1_spu_op_acc_create(SpuAcc *self, const char *name)
 }
 
 // 破棄
-void elixirchip_es1_spu_op_acc_delete(SpuAcc *self)
+void elixirchip_es1_spu_op_acc_delete_#{bit}bit(SpuAcc *self)
 {
     auto ctx = self->context;
 
@@ -100,7 +100,7 @@ void elixirchip_es1_spu_op_acc_delete(SpuAcc *self)
 }
 
 // 演算
-void elixirchip_es1_spu_op_acc(
+void elixirchip_es1_spu_op_acc_#{bit}bit(
             SpuAcc *self,
             int s_sub,
             int s_carry,

@@ -2,7 +2,7 @@
 # MIX_BUILD_PATH
 
 # Private configuration
-PRIV_DIR = $(MIX_BUILD_PATH)/priv/cmake
+PRIV_DIR = $(MIX_BUILD_PATH)/priv/template
 BUILD_DIR = ${PRIV_DIR}/build
  
 build: 
