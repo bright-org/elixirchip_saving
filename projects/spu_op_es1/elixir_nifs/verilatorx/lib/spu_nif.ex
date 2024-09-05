@@ -12,6 +12,11 @@ defmodule SpuNif do
     raise "NIF fast_compare/2 not implemented"
   end
 
+  @doc """
+  パラメータヒントは下記。
+
+  https://github.com/bright-org/elixirchip_saving/blob/1e71f3becdbb79de28060521ff70e26a3eca6bd0/projects/spu_op_es1/wrapper/elixirchip_es1_spu_op_acc/elixirchip_es1_spu_op_acc_wrapper.sv#L22-L31
+  """
   def acc_clk(
         _resource,
         _s_sub,
