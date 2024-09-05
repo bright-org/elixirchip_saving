@@ -13,7 +13,7 @@ gx_sample:上記プロジェクトを利用するサンプルプロジェクト�
 - Docker Desktop v4.33.0
 
 ```bash
-$ cd (任意のパス)/elixir_fpga_eva/projects/spu_op_es1/elixir_nifs
+$ cd (your parh)/projects/spu_op_es1/elixir_nifs
 $ docker compose up -d
 ```
 
@@ -31,21 +31,25 @@ CONTAINER ID   IMAGE            COMMAND   CREATED      STATUS      PORTS        
 ```bash
 $ docker ps
 CONTAINER ID   IMAGE            COMMAND   CREATED      STATUS      PORTS                    NAMES
-69d433a2fc5f   elixirchip-app   "iex"     2 days ago   Up 2 days   0.0.0.0:4000->4000/tcp   elixir-nif-sample
+example   elixirchip-app   "iex"     2 days ago   Up 2 days   0.0.0.0:4000->4000/tcp   elixir-nif-sample
 
 $ docker exec -it elixir-nif-sample bash
-root@69d433a2fc5f:/#
+root@example:/#
 ```
+
+Dockerでコマンドを実行します。
 
 ```bash 
-$ cd /src/elixir_nifs/gx_sample
-$ iex -S mix
+root@example:/# cd /src/elixir_nifs/gx_sample
+root@example:/src/elixir_nifs/gx_sample# mix compile
 ```
 
-コンパイル後にiexを起動します。
+## テスト
 
-```bash
-$ iex -S mix
-iex> Spu.nif_elixirchip_es1_spu_op_acc_create
-0
-``` 
+現在は、8ビットのacc命令のみテストできます。
+回路生成に必要なパラメータについては未対応です。
+
+```bash 
+root@example:/# cd /src/elixir_nifs/gx_sample
+root@example:/src/elixir_nifs/gx_sample# mix test
+```
