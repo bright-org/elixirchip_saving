@@ -15,49 +15,64 @@ defmodule Generator do
 
     IO.puts("Generating files...")
 
-    replace("acc", bit)
-    __replace__(bit, "CMakeLists.txt")
-    __replace__(bit, "spu/CMakeLists.txt")
-    __replace__(bit, "spu/acc/CMakeLists.txt", "spu/acc_#{bit}bit/CMakeLists.txt")
-    __replace__(bit, "spu_nif/CMakeLists.txt")
-    __replace__(bit, "spu_nif/acc/CMakeLists.txt", "spu_nif/acc_#{bit}bit/CMakeLists.txt")
-  end
+    hardware = %{
+      "bit" => "#{bit}",
+      "op" => "acc"
+    }
 
-  def replace(op, bit) do
-    [
+    template_files = [
       {"wrapper.sv", "spu"},
       {"wrapper.h", "spu"},
       {"wrapper.cpp", "spu"},
       {"call.cpp", "spu_nif"}
     ]
-    |> Enum.map(&__replace__(op, bit, &1))
+
+    compile(hardware, template_files)
+    __compile__(hardware, "CMakeLists.txt")
+    __compile__(hardware, "spu/CMakeLists.txt")
+    __compile__(hardware, "spu/acc/CMakeLists.txt", "spu/acc_#{bit}bit/CMakeLists.txt")
+    __compile__(hardware, "spu_nif/CMakeLists.txt")
+    __compile__(hardware, "spu_nif/acc/CMakeLists.txt", "spu_nif/acc_#{bit}bit/CMakeLists.txt")
   end
 
-  defp __replace__(op, bit, {path, dir}) do
+  def compile(hardware, template_files) do
+    template_files
+    |> Enum.map(&__compile_dynamic_path__(hardware, &1))
+  end
+
+  defp __compile_dynamic_path__(hardware, {path, dir}) do
+    %{
+      "bit" => bit,
+      "op" => op
+    } = hardware
+
     fin_path =
       "#{dir}/#{op}/#{path}"
 
     fout_path =
-      "#{dir}/#{op}_#{bit}bit/#{Path.basename(path)}"
+      "#{dir}/#{op}_#{bit}bit/#{op}_#{bit}bit#{Path.extname(path)}"
 
-    __replace__(bit, fin_path, fout_path)
+    __compile__(hardware, fin_path, fout_path)
   end
 
-  defp __replace__(bit, fin_path, fout_path) do
-    {:ok, target} = File.read(template_path(fin_path))
+  defp __compile__(hardware, fin_path, fout_path) do
+    embed_parameters!(hardware, fin_path)
+    |> then(&File.write(output_path(fout_path), &1))
+  end
 
-    str =
-      Regex.replace(~r/#\{(\w+)\}/, target, fn _, key ->
-        case key do
-          "bit" -> "#{bit}"
-          _ -> ""
-        end
+  defp __compile__(hardware, fin_path) do
+    __compile__(hardware, fin_path, fin_path)
+  end
+
+  @doc """
+  パラメーターを埋め込む
+  """
+  def embed_parameters!(hardware, path) do
+    File.read!(template_path(path))
+    |> then(
+      &Regex.replace(~r/#\{(\w+)\}/, &1, fn _, key ->
+        Map.get(hardware, key, "")
       end)
-
-    File.write(output_path(fout_path), str)
-  end
-
-  defp __replace__(bit, fin_path) do
-    __replace__(bit, fin_path, fin_path)
+    )
   end
 end

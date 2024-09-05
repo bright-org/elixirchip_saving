@@ -1,7 +1,7 @@
 #include <erl_nif.h>
 #include <string.h>
 
-#include "wrapper.h"
+#include "#{op}_#{bit}bit.h"
 
 ErlNifResourceType *SpuAccType;
 

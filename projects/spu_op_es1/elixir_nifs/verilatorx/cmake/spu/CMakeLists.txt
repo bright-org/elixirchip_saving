@@ -1,1 +1,1 @@
-add_subdirectory(acc_#{bit}bit)
+add_subdirectory(#{op}_#{bit}bit)

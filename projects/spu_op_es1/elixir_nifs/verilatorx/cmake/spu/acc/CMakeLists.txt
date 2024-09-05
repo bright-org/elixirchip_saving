@@ -1,7 +1,7 @@
-
 cmake_minimum_required(VERSION 3.16)
 
-set(TARGET sv_acc_#{bit}bit)
+set(TARGET sv_#{op}_#{bit}bit)
+set(GENERATE_NAME #{op}_#{bit}bit)
 
 project(${TARGET})
 
@@ -10,7 +10,7 @@ if (NOT verilator_FOUND)
     message(FATAL_ERROR "Verilator was not found. Either install it, or set the VERILATOR_ROOT environment variable")
 endif()
 
-add_library(${TARGET} STATIC ./wrapper.cpp)
+add_library(${TARGET} STATIC ./${GENERATE_NAME}.cpp)
 set_target_properties(${TARGET} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -24,5 +24,5 @@ endif()
 
 verilate(${TARGET}
     VERILATOR_ARGS -D__VERILATOR__ -O3 -y ${RTL_PATH} # --assert --trace-fst --trace-params --trace-structs --trace-underscore
-    SOURCES ./wrapper.sv
+    SOURCES ./${GENERATE_NAME}.sv
 )

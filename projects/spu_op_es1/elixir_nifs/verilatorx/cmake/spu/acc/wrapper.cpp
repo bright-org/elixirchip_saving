@@ -17,10 +17,10 @@ using trace_ptr_t = std::shared_ptr<trace_t>;
 #endif
 
 
-#include "Vwrapper.h"
-using ModuleType = Vwrapper;
+#include "V#{op}_#{bit}bit.h"
+using ModuleType = V#{op}_#{bit}bit;
 
-#include "wrapper.h"
+#include "#{op}_#{bit}bit.h"
 
 // コンテキスト
 struct SpuAccContext {
