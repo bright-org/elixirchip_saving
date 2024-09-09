@@ -81,6 +81,6 @@ ERL_NIF_TERM acc_clk(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
 
 static ErlNifFunc nif_funcs[] = {
     {"create", 1, create},
-    {"acc_clk", 8, acc_clk}};
+    {"clk", 8, acc_clk}};
 
-ERL_NIF_INIT(Elixir.SpuNif, nif_funcs, load, NULL, NULL, NULL)
+ERL_NIF_INIT(#{nif_module}, nif_funcs, load, NULL, NULL, NULL)

@@ -9,9 +9,7 @@ defmodule GxSample.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       compilers: [:burn, :elixir_make] ++ Mix.compilers(),
-      aliases: [
-        "compile.clean": &clean/1
-      ]
+      elixirc_paths: elixirc_paths(Mix.env())
     ]
   end
 
@@ -33,10 +31,5 @@ defmodule GxSample.MixProject do
     ]
   end
 
-  defp clean(_) do
-    System.cmd("make", ["clean"])
-    |> IO.inspect()
-
-    {:ok, []}
-  end
+  defp elixirc_paths(_), do: ["lib", "priv"]
 end

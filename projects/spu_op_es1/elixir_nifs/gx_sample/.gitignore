@@ -24,3 +24,6 @@ gx_sample-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Auto Generated Directory
+/priv/
