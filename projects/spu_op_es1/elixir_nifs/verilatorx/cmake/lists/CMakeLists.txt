@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(TARGET sv_#{op}_#{bit}bit)
-set(GENERATE_NAME #{op}_#{bit}bit)
+set(TARGET sv_#{op})
+set(GENERATE_NAME #{op})
 
 project(${TARGET})
 
@@ -24,5 +24,7 @@ endif()
 
 verilate(${TARGET}
     VERILATOR_ARGS -D__VERILATOR__ -O3 -y ${RTL_PATH} # --assert --trace-fst --trace-params --trace-structs --trace-underscore
-    SOURCES ./${GENERATE_NAME}.sv
+    SOURCES ./${GENERATE_NAME}_wrapper.sv
 )
+
+add_subdirectory(nif)

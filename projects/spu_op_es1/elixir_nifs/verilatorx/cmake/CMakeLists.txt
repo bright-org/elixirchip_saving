@@ -10,7 +10,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -shared -fPIC -Wall -pthread -I$ENV{ERTS_INCLUDE_DIR}")
 set(CMAKE_BUILD_TYPE Release)
 
-# add_subdirectory(hello)
-add_subdirectory(spu)
-add_subdirectory(spu_nif)
-
+#{directories}

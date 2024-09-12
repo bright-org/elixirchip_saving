@@ -1,16 +1,16 @@
 file(GLOB EXAMPLE_SRC ./*.cpp)
 
-set(TARGET #{op}_#{bit}bit)
+set(TARGET #{op})
 
 add_library(${TARGET} SHARED ${EXAMPLE_SRC})
 target_include_directories(${TARGET}
-  PUBLIC /src/elixir_nifs/gx_sample/_build/dev/priv/cmake/spu/${TARGET}
+  PUBLIC /src/elixir_nifs/gx_sample/_build/dev/priv/cmake/${TARGET}
 )
     
 # ライブラリの名前を 任意の名前に変更
 set_target_properties(${TARGET} PROPERTIES OUTPUT_NAME "${TARGET}" PREFIX "" SUFFIX ".so")
 target_link_libraries(${TARGET}
     pthread
-    sv_#{op}_#{bit}bit
-    /src/elixir_nifs/gx_sample/_build/dev/priv/cmake/build/spu/${TARGET}
+    sv_#{op}
+    /src/elixir_nifs/gx_sample/_build/dev/priv/cmake/build/${TARGET}
 )

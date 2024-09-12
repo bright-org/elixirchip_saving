@@ -1,5 +1,11 @@
 defmodule Generator.Nif do
   def module_name(bit, op) do
-    Module.concat([SpuNif, "#{String.capitalize(op)}#{bit}bit"])
+    name =
+      op
+      |> String.split("_")
+      |> Enum.map(&String.capitalize/1)
+      |> Enum.join("")
+
+    Module.concat([SpuNif, name])
   end
 end

@@ -32,6 +32,10 @@ defmodule Mix.Tasks.Compile.Burn do
     Mix.shell().info("AST for #{file_path}:")
     IO.inspect(ast, pretty: true)
 
-    Generator.run()
+    parameters =
+      Parameter.extract(ast, %{})
+      |> IO.inspect()
+
+    Generator.run(parameters)
   end
 end
