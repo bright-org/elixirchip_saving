@@ -26,3 +26,5 @@ sv_parser-*.tar
 /tmp/
 
 /cmake/
+
+/rtl/

@@ -38,19 +38,33 @@ $ docker exec -it elixir-nif-sample bash
 root@example:/#
 ```
 
-Dockerでコマンドを実行します。
-
-```bash 
-root@example:/# cd /src/elixir_nifs/gx_sample
-root@example:/src/elixir_nifs/gx_sample# mix compile
-```
-
 ## テスト
 
-現在は、8ビットのacc命令のみテストできます。
-回路生成に必要なパラメータについては未対応です。
+### テストしたい演算を選定
+
+モジュールを大量にビルドするとメモリを使い潰してしまうため、使いたいものだけビルドします。
+`spu_op_es1/rtl`内から使いたい演算を`elixir_nifs/sv_parser/rtl`配下にコピーします。
+
+以降のサンプルでは、addをコピーしたこととします。
+
+### ファイル生成と実行
+
+下記のようにコマンド実行します。
 
 ```bash 
+root@example:/# cd /src/elixir_nifs/sv_parser
+root@example:/src/elixir_nifs/gx_sample# mix compile
 root@example:/# cd /src/elixir_nifs/gx_sample
-root@example:/src/elixir_nifs/gx_sample# mix test
+root@example:/# iex -S mix
+
+（コンパイルログが流れます）
+
+iex> SpuNif.ElixirchipEs1SpuOpAdd.create("test")
+{:ok, Reference<>}
 ```
+
+### サンプル
+
+下記を参考にしてください。
+
+[elixirchip_es1_spu_op_add_test.exs](./gx_sample/test/elixirchip_es1_spu_op_add_test.exs)

@@ -15,7 +15,7 @@ defmodule SvParser do
   """
   def run do
     files =
-      Path.wildcard("./rtl copy/*" <> @ext)
+      Path.wildcard("./rtl/*" <> @ext)
       |> dbg()
 
     File.rm_rf("cmake/src")
