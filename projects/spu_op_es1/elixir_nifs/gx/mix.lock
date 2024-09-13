@@ -1,0 +1,4 @@
+%{
+  "elixir_cmake": {:hex, :elixir_cmake, "0.7.0", "e270538c21813832187032da32ae166404d5e5062956e64df2f7a2c174088ff8", [:mix], [], "hexpm", "677e69092c3d95fb7a5ef1c9b5ee8b90b6e84bf08a4c3efc73a670affd34ebe4"},
+  "elixir_make": {:hex, :elixir_make, "0.8.4", "4960a03ce79081dee8fe119d80ad372c4e7badb84c493cc75983f9d3bc8bde0f", [:mix], [{:castore, "~> 0.1 or ~> 1.0", [hex: :castore, repo: "hexpm", optional: true]}, {:certifi, "~> 2.0", [hex: :certifi, repo: "hexpm", optional: true]}], "hexpm", "6e7f1d619b5f61dfabd0a20aa268e575572b542ac31723293a4c1a567d5ef040"},
+}

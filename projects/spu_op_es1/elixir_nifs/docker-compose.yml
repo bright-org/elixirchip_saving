@@ -1,0 +1,12 @@
+services:
+  app:
+    container_name: elixir-nif-sample
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # カレントディレクトのsrcフォルダを丸ごとコンテナ内の/srcにマウント
+      - ../../spu_op_es1:/src
+    ports:
+      - 4000:4000
+    tty: true
