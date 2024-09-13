@@ -38,6 +38,13 @@ $ docker exec -it elixir-nif-sample bash
 root@example:/#
 ```
 
+先に`mix deps.get`しておきます。
+
+```bash
+root@example:/# cd src/elixir_nifs/gx_sample
+root@example:/# mix deps.get
+```
+
 ## テスト
 
 `projects/spu_op_es1/elixir_nifs/run.sh`を実行します。
@@ -58,6 +65,6 @@ iex> SpuNif.ElixirchipEs1SpuOpAdd.create("test")
 ### サンプル
 
 コードの利用例は元の*.svファイルを参考にしてください。
-ExUnitで記載方法は下記を参考にしてください。
+ExUnitでの記載方法は下記を参考にしてください。
 
 [elixirchip_es1_spu_op_add_test.exs](./gx_sample/test/elixirchip_es1_spu_op_add_test.exs)
