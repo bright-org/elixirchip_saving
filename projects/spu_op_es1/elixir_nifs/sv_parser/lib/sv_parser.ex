@@ -21,14 +21,6 @@ defmodule SvParser do
 
     files
     |> Enum.each(&parse/1)
-
-    file_names =
-      Enum.map(
-        files,
-        &(&1
-          |> Path.basename()
-          |> Path.rootname(@ext))
-      )
   end
 
   def parse(file_path) do
@@ -72,11 +64,6 @@ defmodule SvParser do
       Regex.run(regex, string)
 
     [_, module_name] = Regex.run(~r/\s*module\s+(\w+)/, string)
-
-    base_name =
-      file_path
-      |> Path.basename()
-      |> Path.rootname(@ext)
 
     wrapper_name = "#{module_name}_wrapper"
 

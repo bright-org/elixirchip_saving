@@ -12,5 +12,4 @@ set_target_properties(${TARGET} PROPERTIES OUTPUT_NAME "${TARGET}" PREFIX "" SUF
 target_link_libraries(${TARGET}
     pthread
     sv_#{op}
-    /src/elixir_nifs/gx_sample/_build/dev/priv/cmake/build/${TARGET}
 )
