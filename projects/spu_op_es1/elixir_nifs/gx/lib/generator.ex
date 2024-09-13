@@ -81,9 +81,6 @@ defmodule Generator do
       "bit" => bit
     } = hardware
 
-    hardware =
-      Map.put(hardware, "nif_module", Atom.to_string(Generator.Nif.module_name(bit, path)))
-
     if(File.exists?("priv")) do
       File.rm_rf!("priv")
     end
@@ -137,7 +134,7 @@ defmodule Generator do
 
   defp __compile_dynamic_path__(hardware, file) do
     %{
-      "bit" => bit,
+      "bit" => _bit,
       "op" => op
     } = hardware
 

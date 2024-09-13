@@ -1,5 +1,5 @@
 defmodule Generator.Nif do
-  def module_name(bit, op) do
+  def module_name(_bit, op) do
     name =
       op
       |> String.split("_")

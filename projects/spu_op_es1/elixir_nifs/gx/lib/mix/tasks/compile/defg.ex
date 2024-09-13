@@ -37,8 +37,4 @@ defmodule Mix.Tasks.Compile.Defg do
       _ -> false
     end)
   end
-
-  defp extract_defn_functions(body) do
-    []
-  end
 end

@@ -30,11 +30,9 @@ defmodule Mix.Tasks.Compile.Burn do
     {:ok, ast} = Code.string_to_quoted(file_content)
 
     Mix.shell().info("AST for #{file_path}:")
-    IO.inspect(ast, pretty: true)
 
     parameters =
       Parameter.extract(ast, %{})
-      |> IO.inspect()
 
     Generator.run(parameters)
   end
