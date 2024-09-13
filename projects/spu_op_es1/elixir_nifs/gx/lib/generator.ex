@@ -84,6 +84,10 @@ defmodule Generator do
     hardware =
       Map.put(hardware, "nif_module", Atom.to_string(Generator.Nif.module_name(bit, path)))
 
+    if(File.exists?("priv")) do
+      File.rm_rf!("priv")
+    end
+
     File.mkdir_p!("priv")
     file_name = "priv/#{path}.ex"
 
