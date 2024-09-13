@@ -16,7 +16,6 @@ defmodule SvParser do
   def run do
     files =
       Path.wildcard("./rtl/*" <> @ext)
-      |> dbg()
 
     File.rm_rf("cmake/src")
 
@@ -53,7 +52,6 @@ defmodule SvParser do
           "output" -> Map.update(acc, :outputs, var, fn lists -> lists ++ [var] end)
         end
       end)
-      |> dbg()
 
     regex = ~r/^\s*parameter\s+\w+\s+(\w+)/
 

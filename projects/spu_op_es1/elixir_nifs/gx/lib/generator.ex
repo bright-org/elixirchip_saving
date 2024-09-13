@@ -37,7 +37,6 @@ defmodule Generator do
         """
       )
       |> Enum.join("")
-      |> dbg()
 
     hardware = Map.put(hardware, "directories", cmake_dir)
     __compile__(hardware, "CMakeLists.txt")
@@ -95,7 +94,7 @@ defmodule Generator do
 
     regex = ~r/\s*{"clk",\s+(\d)/
 
-    [_, ret] = Regex.run(regex, string) |> dbg()
+    [_, ret] = Regex.run(regex, string)
 
     args = for i <- 1..String.to_integer(ret), do: Macro.var(:"_arg#{i}", __MODULE__)
 
@@ -138,8 +137,8 @@ defmodule Generator do
       "op" => op
     } = hardware
 
-    fin_path = template_path("src/#{op}/#{file}") |> dbg()
-    fout_path = output_path("#{op}/#{file}") |> dbg()
+    fin_path = template_path("src/#{op}/#{file}")
+    fout_path = output_path("#{op}/#{file}")
 
     __compile__(hardware, fin_path, fout_path)
   end
