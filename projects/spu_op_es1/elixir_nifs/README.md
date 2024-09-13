@@ -40,22 +40,14 @@ root@example:/#
 
 ## テスト
 
-### テストしたい演算を選定
+`projects/spu_op_es1/elixir_nifs/run.sh`を実行します。
 
-モジュールを大量にビルドするとメモリを使い潰してしまうため、使いたいものだけビルドします。
-`spu_op_es1/rtl`内から使いたい演算を`elixir_nifs/sv_parser/rtl`配下にコピーします。
-
-以降のサンプルでは、addをコピーしたこととします。
-
-### ファイル生成と実行
-
-下記のようにコマンド実行します。
+デフォルトでは`elixirchip_es1_spu_op_add`がElixirから利用できるようになります。
+モジュールを大量にビルドするとメモリを使い潰してしまうため、使いたいものだけ記載します。
 
 ```bash 
-root@example:/# cd /src/elixir_nifs/sv_parser
-root@example:/src/elixir_nifs/gx_sample# mix compile
-root@example:/# cd /src/elixir_nifs/gx_sample
-root@example:/# iex -S mix
+root@example:/# cd /src/elixir_nifs
+root@example:/src/elixir_nifs# ./run.sh
 
 （コンパイルログが流れます）
 
@@ -65,6 +57,7 @@ iex> SpuNif.ElixirchipEs1SpuOpAdd.create("test")
 
 ### サンプル
 
-下記を参考にしてください。
+コードの利用例は元の*.svファイルを参考にしてください。
+ExUnitで記載方法は下記を参考にしてください。
 
 [elixirchip_es1_spu_op_add_test.exs](./gx_sample/test/elixirchip_es1_spu_op_add_test.exs)
