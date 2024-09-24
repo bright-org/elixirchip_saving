@@ -42,7 +42,7 @@ module elixirchip_es1_spu_op_nop
         if ( i < LATENCY ) begin : sr
             always_ff @( posedge clk ) begin
                 if ( reset ) begin
-                    stage_valid[i] <= 1'b0;
+                    stage_valid[i] <= 1'bx;
                 end
                 else if ( cke ) begin
                     stage_valid[i] <= stage_valid[i-1];

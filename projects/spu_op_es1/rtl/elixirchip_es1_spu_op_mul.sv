@@ -79,7 +79,7 @@ module elixirchip_es1_spu_op_mul
         logic       st1_clear;
         logic       st1_valid;
         m_data_t    st2_data;
-        logic       st2_valid;
+//      logic       st2_valid;
 
         always_ff @( posedge clk ) begin
             if ( cke ) begin
@@ -95,15 +95,13 @@ module elixirchip_es1_spu_op_mul
                 st1_valid <= st0_valid;
 
                 // stage2
-                if ( st1_valid ) begin
-                    if ( st1_clear ) begin
-                        st2_data <= CLEAR_DATA;
-                    end
-                    else begin
-                        st2_data <= m_data_t'(st1_data);
-                    end
+                if ( st1_clear ) begin
+                    st2_data <= CLEAR_DATA;
                 end
-                st2_valid <= st1_valid;
+                else if ( st1_valid ) begin
+                    st2_data <= m_data_t'(st1_data);
+                end
+//              st2_valid <= st1_valid;
             end
         end
         
@@ -125,7 +123,7 @@ module elixirchip_es1_spu_op_mul
 
                     .s_data     (st2_data           ),
                     .s_clear    (1'b0               ),
-                    .s_valid    (st2_valid          ),
+                    .s_valid    (1'b1               ),
 
                     .m_data     (m_data             )
                 );
