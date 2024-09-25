@@ -7,9 +7,12 @@
 // 以降は Verilator で C++ のテストドライバも使えるように時間待ちを書かない
 module tb_main
         #(
-            parameter   WB_ADR_WIDTH = 37,
-            parameter   WB_DAT_WIDTH = 64,
-            parameter   WB_SEL_WIDTH = (WB_DAT_WIDTH / 8)
+            parameter   WB_ADR_WIDTH = 37                   ,
+            parameter   WB_DAT_WIDTH = 64                   ,
+            parameter   WB_SEL_WIDTH = (WB_DAT_WIDTH / 8)   ,
+            parameter   DEVICE          = "RTL"             ,
+            parameter   SIMULATION      = "true"            ,
+            parameter   DEBUG           = "false"           
         )
         (
             input   var logic                       reset,
@@ -28,13 +31,19 @@ module tb_main
     // -----------------------------------------
     //  top
     // -----------------------------------------
-    
+
     eval_sram_to_sram_spu_kv260
+            #(
+                .DEVICE     (DEVICE     ),
+                .SIMULATION (SIMULATION ),
+                .DEBUG      (DEBUG      )
+            )
         u_top
             (
                 .fan_en     ()
             );
     
+
     // Zynq のスタブの中にクロックとバスアクセスを接続
     always_comb force u_top.u_design_1.reset  = reset;
     always_comb force u_top.u_design_1.clk300 = clk300;

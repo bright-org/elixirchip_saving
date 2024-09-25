@@ -14,7 +14,7 @@ export TOP_MODULE   = $(PROJECT_NAME)
 export BOARD_PART   = xilinx.com:kv260_som*
 export DEVICE_PART  =
 
-# 環境変数 KV260_BOARD_ADDRESS が設定されている場合は、その値を BOARD_ADDRESS に設定する、なければ kria を設定する
+# 環境変数 KR260_BOARD_ADDRESS が設定されている場合は、その値を BOARD_ADDRESS に設定する、なければ kria を設定する
 ifdef KV260_BOARD_ADDRESS
 BOARD_ADDRESS ?= $(KV260_BOARD_ADDRESS)
 else
@@ -51,11 +51,13 @@ SOURCES += $(SPU_DIR)/rtl/elixirchip_es1_spu_ctl_valid.sv
 SOURCES += $(SPU_DIR)/rtl/elixirchip_es1_spu_op_nop.sv
 SOURCES += $(SPU_DIR)/rtl/elixirchip_es1_spu_op_add.sv
 SOURCES += $(SPU_DIR)/rtl/elixirchip_es1_spu_op_mul.sv
+SOURCES += $(SPU_DIR)/rtl/elixirchip_es1_xilinx_flipflops.sv
+SOURCES += $(SPU_DIR)/rtl/elixirchip_es1_xilinx_carry8.sv
 SOURCES += $(JELLY_RTL_SOURCES)
 export SOURCES
 
 # IP cores
-IP_CORES = 
+IP_CORES = $(SPU_DIR)/ip/k26som/vivado$(VIVADO_VERSION)/elixirchip_es1_spu_gen_mul_s8s8s8l3/elixirchip_es1_spu_gen_mul_s8s8s8l3.xci
 export IP_CORES
 
 # block design

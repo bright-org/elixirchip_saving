@@ -5,9 +5,12 @@
 
 module eval_sram_to_sram_spu_main
         #(
-            parameter int  AXI4L_ADDR_BITS = 40,
-            parameter int  AXI4L_DATA_BITS = 64,
-            parameter int  AXI4L_STRB_BITS = AXI4L_DATA_BITS / 8
+            parameter int   AXI4L_ADDR_BITS = 40                    ,
+            parameter int   AXI4L_DATA_BITS = 64                    ,
+            parameter int   AXI4L_STRB_BITS = AXI4L_DATA_BITS / 8   ,
+            parameter       DEVICE          = "ULTRASCALE_PLUS"     ,
+            parameter       SIMULATION      = "false"               ,
+            parameter       DEBUG           = "false"               
         )
         (
             input   var logic                           core_reset      ,
@@ -98,7 +101,10 @@ module eval_sram_to_sram_spu_main
                 .MEM_DATA_BITS      (64             ),
                 .MEM_RAM_TYPE       ("block"        ),
                 .WB_ADR_BITS        (13             ),
-                .WB_DAT_BITS        (64             )
+                .WB_DAT_BITS        (64             ),
+                .DEVICE             (DEVICE         ),
+                .SIMULATION         (SIMULATION     ),
+                .DEBUG              (DEBUG          )
             )
         u_sram_to_sram_spu
             (

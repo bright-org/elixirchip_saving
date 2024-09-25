@@ -5,6 +5,11 @@
 
 // ボード依存のトップネット(KV260用)
 module eval_sram_to_sram_spu_kv260
+        #(
+            parameter   DEVICE          = "ULTRASCALE_PLUS" ,   // デバイス名
+            parameter   SIMULATION      = "false"           ,   // シミュレーション
+            parameter   DEBUG           = "false"               // デバッグ
+        )
         (
             output  var logic    fan_en
         );
@@ -75,7 +80,11 @@ module eval_sram_to_sram_spu_kv260
     eval_sram_to_sram_spu_main
             #(
                 .AXI4L_ADDR_BITS    (AXI4L_ADDR_BITS    ),
-                .AXI4L_DATA_BITS    (AXI4L_DATA_BITS    )
+                .AXI4L_DATA_BITS    (AXI4L_DATA_BITS    ),
+                .DEVICE             (DEVICE             ),
+                .SIMULATION         (SIMULATION         ),
+                .DEBUG              (DEBUG              )
+
             )
         u_eval_sram_to_sram_spu_main
             (

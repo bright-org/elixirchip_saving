@@ -63,7 +63,6 @@ module stream_processing_unit
 
             localparam LATENCY = 3;  // 8bit 乗算を行う為 3 とする
 
-            /*
             // 乗算
             elixirchip_es1_spu_op_mul
                     #(
@@ -92,33 +91,7 @@ module stream_processing_unit
                         
                         .m_data             (stage_m_data0[i][j]) 
                     );
-            */
-        mul_s8s8s8
-            u_mul_s8s8s8
-                (
-                    .reset      ,
-                    .clk        ,
-//                  .cke        ,
-
-                    .s_data0    (stage_s_data0[i][j]),
-                    .s_data1    (stage_s_data1[i][j]),
-                    .m_data     (stage_m_data0[i][j])
-                );
-
-
-            /*
-            // 別途生成した3段パイプラインの INT8 乗算
-            mul_s8s8_lo8_p3
-                u_mul_s8s8_lo8_p3
-                    (
-                        .CLK    (clk                    ),
-                        .CE     (cke                    ),
-                        .A      (stage_s_data0[i][j]    ),
-                        .B      (stage_s_data1[i][j]    ),
-                        .P      (stage_m_data0[i][j]    )
-                    );
-            */
-
+            
             // 加算
             elixirchip_es1_spu_op_add
                     #(
@@ -130,9 +103,9 @@ module stream_processing_unit
                         .IMMEDIATE_CARRY    (1'b1               ),
                         .IMMEDIATE_DATA0    (1'b0               ),
                         .IMMEDIATE_DATA1    (1'b0               ),
-                        .DEVICE             ("RTL"              ),
-                        .SIMULATION         ("false"            ),
-                        .DEBUG              ("false"            )
+                        .DEVICE             (DEVICE             ),
+                        .SIMULATION         (SIMULATION         ),
+                        .DEBUG              (DEBUG              )
                     )
                 u_elixirchip_es1_spu_op_add
                     (
@@ -181,4 +154,3 @@ endmodule
 
 
 `default_nettype wire
-

@@ -6,10 +6,14 @@
 (* use_dsp = "no" *)
 module sram_to_sram_spu_core
         #(
-            parameter int  ADDR_BITS = 10,
-            parameter type addr_t    = logic [ADDR_BITS-1:0],
-            parameter int  DATA_BITS = 64,
-            parameter type data_t    = logic [DATA_BITS-1:0]
+            parameter int   ADDR_BITS  = 10                     ,
+            parameter type  addr_t     = logic [ADDR_BITS-1:0]  ,
+            parameter int   DATA_BITS  = 64                     ,
+            parameter type  data_t     = logic [DATA_BITS-1:0]  ,
+            parameter       DEVICE     = "RTL"                  ,
+            parameter       SIMULATION = "false"                ,
+            parameter       DEBUG      = "false"                
+
         )
         (
             input   var logic       reset           ,
@@ -72,7 +76,10 @@ module sram_to_sram_spu_core
     stream_processing_unit
             #(
                 .DATA_BITS      (DATA_BITS          ),
-                .DEVICE         ("ULTRASCALE_PLUS"  )
+                .DEVICE         (DEVICE             ),
+                .SIMULATION     (SIMULATION         ),
+                .DEBUG          (DEBUG              )
+
             )
         u_stream_processing_unit
             (

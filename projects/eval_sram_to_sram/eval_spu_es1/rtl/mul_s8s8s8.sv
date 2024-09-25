@@ -15,7 +15,21 @@ module mul_s8s8s8
             output  var logic   signed  [7:0]  m_data      // 出力データ
         );
 
+    logic   signed  [7:0]   st0_data0;
+    logic   signed  [7:0]   st0_data1;
+    logic   signed  [7:0]   st1_data;
+    logic   signed  [7:0]   st2_data;
 
+    always_ff @( posedge clk ) begin
+        st0_data0 <= s_data0;
+        st0_data1 <= s_data1;
+        st1_data  <= st0_data0 * st0_data1;
+        st2_data  <= st1_data;
+    end
+
+    assign m_data = st2_data;
+
+    /*
     elixirchip_es1_spu_op_mul
             #(
                 .LATENCY            (3                  ),
@@ -43,6 +57,7 @@ module mul_s8s8s8
                 
                 .m_data             
             );
+    */
 
 endmodule
 

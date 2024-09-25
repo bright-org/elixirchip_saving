@@ -5,12 +5,16 @@
 
 module sram_to_sram_spu
         #(
-            parameter   int     MEM_ADDR_BITS = 10      ,
-            parameter   int     MEM_DATA_BITS = 64      ,
-            parameter           MEM_RAM_TYPE  = "block" ,
-            parameter   int     WB_ADR_BITS   = 13      ,
-            parameter   int     WB_DAT_BITS   = 64      ,
-            parameter   int     WB_SEL_BITS   = (WB_DAT_BITS / 8)
+            parameter   int     MEM_ADDR_BITS = 10                  ,
+            parameter   int     MEM_DATA_BITS = 64                  ,
+            parameter           MEM_RAM_TYPE  = "block"             ,
+            parameter   int     WB_ADR_BITS   = 13                  ,
+            parameter   int     WB_DAT_BITS   = 64                  ,
+            parameter   int     WB_SEL_BITS   = (WB_DAT_BITS / 8)   ,
+            parameter           DEVICE        = "RTL"               ,  
+            parameter           SIMULATION    = "false"             ,
+            parameter           DEBUG         = "false"             
+
         )
         (
             input   var logic                           core_reset      ,
@@ -493,7 +497,10 @@ module sram_to_sram_spu
     sram_to_sram_spu_core
             #(
                 .ADDR_BITS      (MEM_ADDR_BITS  ),
-                .DATA_BITS      (MEM_DATA_BITS  )
+                .DATA_BITS      (MEM_DATA_BITS  ),
+                .DEVICE         (DEVICE         ),  
+                .SIMULATION     (SIMULATION     ),
+                .DEBUG          (DEBUG          )
             )
         u_sram_to_sram_spu_core
             (

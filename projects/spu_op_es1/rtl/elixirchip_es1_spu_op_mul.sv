@@ -38,7 +38,35 @@ module elixirchip_es1_spu_op_mul
     localparam  int     CALC_BITS = $bits(s_data0_t) + $bits(s_data1_t);
     localparam  type    calc_t    = logic signed    [CALC_BITS-1:0];
 
-    if ( LATENCY < 3 ) begin : lut_mul
+    if ( LATENCY == 3 && string'(SIMULATION) == "false"
+            && $bits(s_data0_t) > 3 && $bits(s_data0_t) <= 8
+            && $bits(s_data1_t) > 3 && $bits(s_data1_t) <= 8
+            && $bits(m_data_t) + DATA_SHIFT <= 8
+            && ( string'(DEVICE) == "SPARTAN6" ||
+                 string'(DEVICE) == "VIRTEX6" ||
+                 string'(DEVICE) == "7SERIES"  ||
+                 string'(DEVICE) == "ULTRASCALE" ||
+                 string'(DEVICE) == "ULTRASCALE_PLUS" ||
+                 string'(DEVICE) == "ULTRASCALE_PLUS_ES1" ||
+                 string'(DEVICE) == "ULTRASCALE_PLUS_ES2") ) begin
+
+        logic   signed  [7:0]   core_a;
+        logic   signed  [7:0]   core_b;
+        logic   signed  [7:0]   core_p;
+        elixirchip_es1_spu_gen_mul_s8s8s8l3
+            u_elixirchip_es1_spu_gen_mul_s8s8s8l3
+                (
+                    .CLK    (clk    ),
+                    .CE     (cke    ),
+                    .A      (core_a ),
+                    .B      (core_b ),
+                    .P      (core_p )
+                );
+        assign core_a = 8'(s_data0);
+        assign core_b = 8'(s_data1);
+        assign m_data = m_data_t'(core_p >>> DATA_SHIFT);
+    end
+    else if ( LATENCY < 3 ) begin : lut_mul
         // 演算
         m_data_t    st0_data    ;
         logic       st0_clear   ;
@@ -79,7 +107,7 @@ module elixirchip_es1_spu_op_mul
         logic       st1_clear;
         logic       st1_valid;
         m_data_t    st2_data;
-//      logic       st2_valid;
+        logic       st2_valid;
 
         always_ff @( posedge clk ) begin
             if ( cke ) begin
@@ -95,13 +123,15 @@ module elixirchip_es1_spu_op_mul
                 st1_valid <= st0_valid;
 
                 // stage2
-                if ( st1_clear ) begin
-                    st2_data <= CLEAR_DATA;
+                if ( st1_valid ) begin
+                    if ( st1_clear ) begin
+                        st2_data <= CLEAR_DATA;
+                    end
+                    else begin
+                        st2_data <= m_data_t'(st1_data);
+                    end
                 end
-                else if ( st1_valid ) begin
-                    st2_data <= m_data_t'(st1_data);
-                end
-//              st2_valid <= st1_valid;
+                st2_valid <= st1_valid;
             end
         end
         
@@ -123,7 +153,7 @@ module elixirchip_es1_spu_op_mul
 
                     .s_data     (st2_data           ),
                     .s_clear    (1'b0               ),
-                    .s_valid    (1'b1               ),
+                    .s_valid    (st2_valid          ),
 
                     .m_data     (m_data             )
                 );

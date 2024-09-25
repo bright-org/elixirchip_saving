@@ -38,7 +38,16 @@ module tb_sim();
     // ---------------------------------
     //  main
     // ---------------------------------
+    
 
+`ifdef __VERILATOR__
+    localparam   DEVICE     = "RTL"             ;
+`else
+    localparam   DEVICE     = "ULTRASCALE_PLUS" ;
+`endif    
+    localparam   SIMULATION = "true"            ;
+    localparam   DEBUG      = "false"           ;
+    
     localparam  int     WB_ADR_WIDTH        = 37;
     localparam  int     WB_DAT_WIDTH        = 64;
     localparam  int     WB_SEL_WIDTH        = (WB_DAT_WIDTH / 8);
@@ -57,8 +66,11 @@ module tb_sim();
 
     tb_main
             #(
-                .WB_ADR_WIDTH   (WB_ADR_WIDTH),
-                .WB_DAT_WIDTH   (WB_DAT_WIDTH)
+                .WB_ADR_WIDTH   (WB_ADR_WIDTH   ),
+                .WB_DAT_WIDTH   (WB_DAT_WIDTH   ),
+                .DEVICE         (DEVICE         ),
+                .SIMULATION     (SIMULATION     ),
+                .DEBUG          (DEBUG          )
             )
         u_tb_main
             (
@@ -66,13 +78,13 @@ module tb_sim();
                 .clk300,
                 .clk500,
 
-                .s_wb_adr_i     (wb_adr_i   ),
-                .s_wb_dat_o     (wb_dat_o   ),
-                .s_wb_dat_i     (wb_dat_i   ),
-                .s_wb_sel_i     (wb_sel_i   ),
-                .s_wb_we_i      (wb_we_i    ),
-                .s_wb_stb_i     (wb_stb_i   ),
-                .s_wb_ack_o     (wb_ack_o   )
+                .s_wb_adr_i     (wb_adr_i       ),
+                .s_wb_dat_o     (wb_dat_o       ),
+                .s_wb_dat_i     (wb_dat_i       ),
+                .s_wb_sel_i     (wb_sel_i       ),
+                .s_wb_we_i      (wb_we_i        ),
+                .s_wb_stb_i     (wb_stb_i       ),
+                .s_wb_ack_o     (wb_ack_o       )
             );
     
 

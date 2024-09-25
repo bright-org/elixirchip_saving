@@ -7,6 +7,8 @@ JELLY_TOP_DIR = ../../../../../../../packages/jelly
 
 -include $(JELLY_TOP_DIR)/include/make/def_simulation.inc
 
+XILINX_VIVADO ?= /tools/Xilinx/Vivado/2023.2
+
 SIM_LIB_DIRS += ../../stub
 SIM_LIB_DIRS += ../../../rtl
 SIM_LIB_DIRS += ../../../../rtl
@@ -22,7 +24,7 @@ ELABFLAGS  = -debug wave
 SRCS  = ../$(TOP_MODULE).sv
 SRCS += ../tb_main.sv
 SRCS += ../../stub/design1.v
-
+SRCS += $(XILINX_VIVADO)/data/verilog/src/glbl.v
 
 # rulres
 .PHONY: all
@@ -31,7 +33,7 @@ all: clean build run
 .PHONY: build
 build:
 	xvlog $(VLOGFLAGS) $(SRCS)
-	xelab $(ELABFLAGS) $(TOP_MODULE) -s $(TOP_MODULE)
+	xelab $(ELABFLAGS) $(TOP_MODULE) glbl -s $(TOP_MODULE) -L unisims_ver -L unimacro_ver -L secureip
 
 .PHONY: run
 run:
