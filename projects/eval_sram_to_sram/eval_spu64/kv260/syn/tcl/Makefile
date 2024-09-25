@@ -21,7 +21,7 @@ else
 BOARD_ADDRESS ?= kria
 endif
 
-BOARD_WORK_DIR ?= git-work/elixir_fpga_eva
+BOARD_WORK_DIR ?= git-work/elixirchip_saving
 
 BIT_FILE = $(PRJ_NAME).runs/impl_1/$(TOP_MODULE).bit
 
@@ -80,7 +80,7 @@ build: $(BIT_FILE) make_csv check_log
 
 .PHONY : bit_scp
 bit_scp: $(BIT_FILE)
-	scp $(BIT_FILE) $(BOARD_ADDRESS):$(BOARD_WORK_DIR)/projects/eval_sram_to_sram/eval_any512_s8/kv260/app/
+	scp $(BIT_FILE) $(BOARD_ADDRESS):$(BOARD_WORK_DIR)/projects/eval_sram_to_sram/eval_spu64/kv260/app/
 
 .PHONY : bit_cp
 bit_cp: $(BIT_FILE)

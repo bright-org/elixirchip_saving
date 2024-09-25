@@ -21,7 +21,7 @@ else
 BOARD_ADDRESS ?= zcu106
 endif
 
-BOARD_WORK_DIR ?= git-work/elixir_fpga_eva
+BOARD_WORK_DIR ?= git-work/elixirchip_saving
 
 BIT_FILE = $(PRJ_NAME).runs/impl_1/$(TOP_MODULE).bit
 
