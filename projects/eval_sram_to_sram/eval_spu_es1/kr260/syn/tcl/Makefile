@@ -7,16 +7,16 @@ VIVADO_VERSIONS := $(subst .,$(space),$(subst v,,$(word 2,$(shell vivado -versio
 VIVADO_VERSION  := $(word 1,$(VIVADO_VERSIONS)).$(word 2,$(VIVADO_VERSIONS))
 
 # settings
-PROJECT_NAME = eval_sram_to_sram_spu_kv260
-BOARD_NAME   = kv260
+PROJECT_NAME = eval_sram_to_sram_spu_kr260
+BOARD_NAME   = kr260
 export PRJ_NAME     = $(PROJECT_NAME)_tcl
 export TOP_MODULE   = $(PROJECT_NAME)
-export BOARD_PART   = xilinx.com:kv260_som*
+export BOARD_PART   = xilinx.com:kr260_som*
 export DEVICE_PART  =
 
 # 環境変数 KR260_BOARD_ADDRESS が設定されている場合は、その値を BOARD_ADDRESS に設定する、なければ kria を設定する
-ifdef KV260_BOARD_ADDRESS
-BOARD_ADDRESS ?= $(KV260_BOARD_ADDRESS)
+ifdef KR260_BOARD_ADDRESS
+BOARD_ADDRESS ?= $(KR260_BOARD_ADDRESS)
 else
 BOARD_ADDRESS ?= kria
 endif
@@ -40,7 +40,7 @@ HLS_IP =
 export HLS_IP
 
 # sources
-SOURCES  = $(PRJ_DIR)/kv260/rtl/eval_sram_to_sram_spu_kv260.sv
+SOURCES  = $(PRJ_DIR)/kr260/rtl/eval_sram_to_sram_spu_kr260.sv
 SOURCES += $(PRJ_DIR)/rtl/eval_sram_to_sram_spu_main.sv
 SOURCES += $(PRJ_DIR)/rtl/sram_to_sram_spu.sv
 SOURCES += $(PRJ_DIR)/rtl/sram_to_sram_spu_core.sv
@@ -86,7 +86,7 @@ build: $(BIT_FILE) check_log
 
 .PHONY : bit_scp
 bit_scp: $(BIT_FILE)
-	scp $(BIT_FILE) $(BOARD_ADDRESS):$(BOARD_WORK_DIR)/projects/eval_sram_to_sram/eval_spu_es1/kv260/app/
+	scp $(BIT_FILE) $(BOARD_ADDRESS):$(BOARD_WORK_DIR)/projects/eval_sram_to_sram/eval_spu_es1/kr260/app/
 
 .PHONY : bit_cp
 bit_cp: $(BIT_FILE)
