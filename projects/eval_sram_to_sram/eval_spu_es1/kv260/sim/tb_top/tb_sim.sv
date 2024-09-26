@@ -47,7 +47,7 @@ module tb_sim();
 `endif    
     localparam   SIMULATION = "true"            ;
     localparam   DEBUG      = "false"           ;
-    
+
     localparam  int     WB_ADR_WIDTH        = 37;
     localparam  int     WB_DAT_WIDTH        = 64;
     localparam  int     WB_SEL_WIDTH        = (WB_DAT_WIDTH / 8);
@@ -116,10 +116,44 @@ module tb_sim();
     localparam  wb_adr_t    ADR_MEM2 = wb_adr_t'(32'h00001800);
     localparam  wb_adr_t    ADR_MEM3 = wb_adr_t'(32'h00001c00);
 
+    logic [7:0][7:0]    input_data0     [0:1023];   // 入力データ0
+    logic [7:0][7:0]    input_data1     [0:1023];   // 入力データ1
+    logic [7:0][7:0]    expect_data0    [0:1023];  // 期待値0
+    logic [7:0][7:0]    expect_data1    [0:1023];  // 期待値1
+
+    // データと期待値生成
+    initial begin
+        // 入力データ作成
+        for ( int i = 0; i < 1024; i++ ) begin
+            for ( int j = 0; j < 8; j++ ) begin
+                input_data0[i][j]  = 8'($random());
+                input_data1[i][j]  = 8'($random());
+                expect_data0[i][j] = input_data0[i][j];
+                expect_data1[i][j] = input_data1[i][j];
+            end
+        end
+    
+        // 期待値作成
+        for ( int depth = 0; depth < 256; depth++ ) begin
+            for ( int i = 0; i < 1024; i++ ) begin
+                for ( int j = 0; j < 8; j++ ) begin
+                    automatic logic [7:0] v0, v1;
+                    v0 = expect_data0[i][j] * expect_data1[i][j];
+                    v1 = expect_data0[i][j] + expect_data1[i][j];
+                    expect_data0[i][j] = v0;
+                    expect_data1[i][j] = v1;
+                end
+            end
+        end
+    end
+
+
     initial begin
         automatic logic [WB_DAT_WIDTH-1:0] dat;
-
+        // リセット解除待ち
     #1000;
+
+        // メモリ読み書きテスト
         $display("mem read/write test");
         u_wb_accessor.write(ADR_MEM0 + wb_adr_t'(0), 64'h0706050403020100, 8'hff);
         u_wb_accessor.write(ADR_MEM0 + wb_adr_t'(1), 64'h0f0e0d0c0b0a0908, 8'hff);
@@ -156,13 +190,10 @@ module tb_sim();
         u_wb_accessor.read(ADR_MEM2 + wb_adr_t'(0), dat); assert (dat == 64'h0000000000003333) else begin $error("mismatch"); $finish; end;
         u_wb_accessor.read(ADR_MEM3 + wb_adr_t'(0), dat); assert (dat == 64'h0000000000004444) else begin $error("mismatch"); $finish; end;
 
-        dat = '0;
+        // 演算テスト
         for ( int i = 0; i < 1024; i++ ) begin
-//            u_wb_accessor.write(ADR_MEM0 + wb_adr_t'(i), dat, 8'hff);
-//            u_wb_accessor.write(ADR_MEM1 + wb_adr_t'(i), dat, 8'hff);
-            u_wb_accessor.write(ADR_MEM0 + wb_adr_t'(i), {8{8'h01}}, 8'hff);
-            u_wb_accessor.write(ADR_MEM1 + wb_adr_t'(i), {8{8'h02}}, 8'hff);
-            dat += 1;
+            u_wb_accessor.write(ADR_MEM0 + wb_adr_t'(i), input_data0[i], 8'hff);
+            u_wb_accessor.write(ADR_MEM1 + wb_adr_t'(i), input_data1[i], 8'hff);
         end
 
         // start
@@ -181,7 +212,12 @@ module tb_sim();
         // read
         for ( int i = 0; i < 1024; i++ ) begin
             u_wb_accessor.read(ADR_MEM2 + wb_adr_t'(i), dat);
+            $display("mem2[%d] = %h (expect:%h)", i, dat, expect_data0[i]);
+            assert (dat == expect_data0[i]) else begin $error("mismatch"); $finish; end;
+
             u_wb_accessor.read(ADR_MEM3 + wb_adr_t'(i), dat);
+            $display("mem3[%d] = %h (expect:%h)", i, dat, expect_data1[i]);
+            assert (dat == expect_data1[i]) else begin $error("mismatch"); $finish; end;
         end
 
     #10000;

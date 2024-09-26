@@ -10,19 +10,19 @@ endif()
 
 
 # vivado version
-execute_process (
-    COMMAND vivado -version
-    OUTPUT_VARIABLE VIVADO_VERSION_TEXT
-)
-string(REGEX MATCH [[v[0-9]+\.[0-9]+]] VIVADO_VERSION ${VIVADO_VERSION_TEXT})
-string(SUBSTRING ${VIVADO_VERSION} 1 6 VIVADO_VERSION)
-string(SUBSTRING ${VIVADO_VERSION} 0 4 VIVADO_VERSION_MAJOR)
-string(SUBSTRING ${VIVADO_VERSION} 5 1 VIVADO_VERSION_MINOR)
-message("VIVADO_VERSION: ${VIVADO_VERSION}")
+#execute_process (
+#    COMMAND vivado -version
+#    OUTPUT_VARIABLE VIVADO_VERSION_TEXT
+#)
+#string(REGEX MATCH [[v[0-9]+\.[0-9]+]] VIVADO_VERSION ${VIVADO_VERSION_TEXT})
+#string(SUBSTRING ${VIVADO_VERSION} 1 6 VIVADO_VERSION)
+#string(SUBSTRING ${VIVADO_VERSION} 0 4 VIVADO_VERSION_MAJOR)
+#string(SUBSTRING ${VIVADO_VERSION} 5 1 VIVADO_VERSION_MINOR)
+#message("VIVADO_VERSION: ${VIVADO_VERSION}")
 
 add_executable(tb_verilator ./tb_verilator.cpp)
 
-target_include_directories(tb_verilator PUBLIC "../../../../../../include")
+target_include_directories(tb_verilator PUBLIC "../../../../../../../packages/jelly/include")
 set(CMAKE_CXX_FLAGS "-O3 -std=c++17")
 target_link_libraries(tb_verilator PUBLIC "-pthread") 
 
