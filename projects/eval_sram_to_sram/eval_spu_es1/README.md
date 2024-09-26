@@ -57,6 +57,16 @@ git submodule update --init --recursive
 
 ## シミュレーション方法
 
+### xsim を使う方法
+
+kv260/sim/tb_top/xsim にて
+
+```
+make
+```
+
+シミュレーション時間が長いです。
+
 ### verilator を使う方法
 
 kv260/sim/tb_top/verilator にて
@@ -65,13 +75,18 @@ kv260/sim/tb_top/verilator にて
 make
 ```
 
-### xsim を使う方法
+Segmentation fault を起こす場合が報告されており、その場合、事項の C++ 版だとうまく行く場合があります。
 
-kv260/sim/tb_top/xsim にて
+
+### verilator を C++言語のテストドライバで使う方法
+
+kv260/sim/tb_top/verilator_cpp にて
 
 ```
 make
 ```
+
+コンパイル時間が長いです。
 
 
 ## 合成方法
@@ -93,7 +108,7 @@ make
 
 まず kv260/app に eval_sram_to_sram_spu_kv260.bit をコピーする
 
-eval_add512_u8/kv260/app にて
+eval_spu_es1/kv260/app にて
 
 ```
 make run
