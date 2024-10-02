@@ -29,13 +29,16 @@ module sva_elixirchip_es1_spu_op_reg
     // 期待値生成
     data_t      s_expected_data;
     logic       s_expected_valid;
+    logic       s_expected_init  = 1'b0;
     always_ff @(posedge clk) begin
         if ( cke ) begin
             if ( s_clear ) begin
                 s_expected_data  <= CLEAR_DATA;
+                s_expected_init  <= 1'b1;
             end
             else if ( s_valid ) begin
                 s_expected_data <= s_data;
+                s_expected_init <= 1'b1;
             end
         end
     end
@@ -48,22 +51,23 @@ module sva_elixirchip_es1_spu_op_reg
     // 期待値を遅延させる
     data_t      m_expected_data;
     logic       m_expected_valid;
+    logic       m_expected_init;
     expected_delay
             #(
                 .LATENCY        (LATENCY - 1        ),
-                .EXPECTED_BITS  ($bits(m_data)      )
+                .EXPECTED_BITS  ($bits(m_data) + 1  )
             )
         u_expected_delay
             (
-                .reset          (1'b0               ),
+                .reset          ,
                 .clk            ,
                 .cke            ,
 
-                .s_data         (s_expected_data    ),
-                .s_valid        (s_expected_valid   ),
+                .s_data         ({s_expected_data, s_expected_valid}),
+                .s_valid        (s_expected_init   ),
                 
-                .m_data         (m_expected_data    ),
-                .m_valid        (m_expected_valid   )
+                .m_data         ({m_expected_data, m_expected_valid}),
+                .m_valid        (m_expected_init   )
             );
 
 
@@ -71,7 +75,7 @@ module sva_elixirchip_es1_spu_op_reg
     // valid の unknown は許容しない
     property p_valid_unknown();
         @(posedge (clk & cke)) disable iff ( reset )
-        (1) |-> !$isunknown(s_valid);
+        !m_expected_init |-> !$isunknown(s_valid);
     endproperty
     sva_valid_unknown : assert property(p_valid_unknown) else begin
         $error("%t : ERROR valid_unknown", $time);
@@ -89,7 +93,7 @@ module sva_elixirchip_es1_spu_op_reg
 
     property p_stable();
         @(posedge (clk & cke)) disable iff ( reset )
-        !m_expected_valid |-> $stable(m_data);
+        !m_expected_valid && m_expected_init |-> $stable(m_data);
     endproperty
     sva_stable : assert property(p_stable) else begin
         $error("%m %t : ERROR : m_data is changed while non-valid", $time);
