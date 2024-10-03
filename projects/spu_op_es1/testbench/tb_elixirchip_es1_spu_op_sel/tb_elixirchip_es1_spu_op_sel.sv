@@ -47,6 +47,8 @@ module tb_elixirchip_es1_spu_op_sel
                 .CLEAR_DATA     (CLEAR_DATA     ),
                 .IMMEDIATE_SEL  (IMMEDIATE_SEL  ),
                 .IMMEDIATE_DATA (IMMEDIATE_DATA ),
+                .USE_CLEAR      (1'b1           ),
+                .USE_VALID      (1'b1           ),
                 .DEVICE         (DEVICE         ),
                 .SIMULATION     (SIMULATION     ),
                 .DEBUG          (DEBUG          )

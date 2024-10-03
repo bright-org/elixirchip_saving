@@ -63,17 +63,17 @@ module tb_main
     // SVA bind  (インスタンスへの bind は verilator が未対応)
     bind elixirchip_es1_spu_op_add sva_elixirchip_es1_spu_op_add
             #(
-                .LATENCY        (LATENCY    ),
-                .DATA_BITS      (DATA_BITS  ),
-                .IMMEDIATE_CARRY     (1'b1       ),
-                .IMMEDIATE_DATA0     (1'b0       ),
-                .IMMEDIATE_DATA1     (1'b0       ),
-                .CLEAR_DATA     (CLEAR_DATA ),
-                .CLEAR_CARRY    (CLEAR_CARRY),
-                .CLEAR_MSB_C    (CLEAR_MSB_C),
-                .DEVICE         (DEVICE     ),
-                .SIMULATION     (SIMULATION ),
-                .DEBUG          (DEBUG      ) 
+                .LATENCY            (LATENCY    ),
+                .DATA_BITS          (DATA_BITS  ),
+                .IMMEDIATE_CARRY    (1'b1       ),
+                .IMMEDIATE_DATA0    (1'b0       ),
+                .IMMEDIATE_DATA1    (1'b0       ),
+                .CLEAR_DATA         (CLEAR_DATA ),
+                .CLEAR_CARRY        (CLEAR_CARRY),
+                .CLEAR_MSB_C        (CLEAR_MSB_C),
+                .DEVICE             (DEVICE     ),
+                .SIMULATION         (SIMULATION ),
+                .DEBUG              (DEBUG      ) 
             )
         u_sva
             (
@@ -162,18 +162,20 @@ module tb_main
 
     elixirchip_es1_spu_op_add
             #(
-                .LATENCY        (LATENCY    ),
-                .DATA_BITS      (DATA_BITS  ),
-                .data_t         (data_t     ),
-                .IMMEDIATE_CARRY     (1'b1       ),
-                .IMMEDIATE_DATA0     (1'b0       ),
-                .IMMEDIATE_DATA1     (1'b0       ),
-                .CLEAR_DATA     (CLEAR_DATA ),
-                .CLEAR_CARRY    (CLEAR_CARRY),
-                .CLEAR_MSB_C    (CLEAR_MSB_C),
-                .DEVICE         (DEVICE     ),
-                .SIMULATION     (SIMULATION ),
-                .DEBUG          (DEBUG      ) 
+                .LATENCY            (LATENCY    ),
+                .DATA_BITS          (DATA_BITS  ),
+                .data_t             (data_t     ),
+                .IMMEDIATE_CARRY    (1'b1       ),
+                .IMMEDIATE_DATA0    (1'b0       ),
+                .IMMEDIATE_DATA1    (1'b0       ),
+                .CLEAR_DATA         (CLEAR_DATA ),
+                .CLEAR_CARRY        (CLEAR_CARRY),
+                .CLEAR_MSB_C        (CLEAR_MSB_C),
+                .USE_CLEAR          (1'b1       ),
+                .USE_VALID          (1'b1       ),
+                .DEVICE             (DEVICE     ),
+                .SIMULATION         (SIMULATION ),
+                .DEBUG              (DEBUG      ) 
             )
         u_elixirchip_es1_spu_op_add
             (

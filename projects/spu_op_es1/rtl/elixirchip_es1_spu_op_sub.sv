@@ -14,6 +14,8 @@ module elixirchip_es1_spu_op_sub
             parameter   bit     IMMEDIATE_CARRY = 1'b1                  ,   // s_carry が即値の場合に1にする
             parameter   bit     IMMEDIATE_DATA0 = 1'b0                  ,   // s_data0 が即値の場合に1にする
             parameter   bit     IMMEDIATE_DATA1 = 1'b0                  ,   // s_data1 が即値の場合に1にする
+            parameter   bit     USE_CLEAR       = 1'b0                  ,   // s_clear 信号を使う場合に1にする
+            parameter   bit     USE_VALID       = 1'b0                  ,   // s_valid 信号を使う場合に1にする
             parameter           DEVICE          = "RTL"                 ,   // デバイス名
             parameter           SIMULATION      = "false"               ,   // シミュレーション
             parameter           DEBUG           = "false"                   // デバッグ

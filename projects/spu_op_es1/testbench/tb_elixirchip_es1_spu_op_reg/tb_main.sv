@@ -60,7 +60,8 @@ module tb_main
                     );
         end
     end
-
+    
+    
     // SVA bind (verilator でも使えるようにモジュール名でバインド)
     bind elixirchip_es1_spu_op_reg sva_elixirchip_es1_spu_op_reg
             #(
@@ -75,7 +76,7 @@ module tb_main
             (
                 .*
             );
-
+    
     // -----------------------------------------
     //  typical な個別検証
     // -----------------------------------------

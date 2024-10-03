@@ -149,6 +149,8 @@ module tb_main
                 .CLEAR_DATA     (CLEAR_DATA ),
                 .IMMEDIATE_SEL  (1'b0       ),
                 .IMMEDIATE_DATA (1'b0       ),
+                .USE_CLEAR      (1'b1       ),
+                .USE_VALID      (1'b1       ),
                 .DEVICE         (DEVICE     ),
                 .SIMULATION     (SIMULATION ),
                 .DEBUG          (DEBUG      ) 

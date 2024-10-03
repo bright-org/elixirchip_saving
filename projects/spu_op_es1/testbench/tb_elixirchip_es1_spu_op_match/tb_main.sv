@@ -66,8 +66,8 @@ module tb_main
                 .LATENCY        (LATENCY    ),
                 .DATA_BITS      (DATA_BITS  ),
                 .CLEAR_DATA     (CLEAR_DATA ),
-                .IMMEDIATE_DATA0     (1'b0       ),
-                .IMMEDIATE_DATA1     (1'b0       ),
+                .IMMEDIATE_DATA0(1'b0       ),
+                .IMMEDIATE_DATA1(1'b0       ),
                 .DEVICE         (DEVICE     ),
                 .SIMULATION     (SIMULATION ),
                 .DEBUG          (DEBUG      ) 
@@ -137,8 +137,10 @@ module tb_main
                 .DATA_BITS      (DATA_BITS  ),
                 .data_t         (data_t     ),
                 .CLEAR_DATA     (CLEAR_DATA ),
-                .IMMEDIATE_DATA0     (1'b0       ),
-                .IMMEDIATE_DATA1     (1'b0       ),
+                .IMMEDIATE_DATA0(1'b0       ),
+                .IMMEDIATE_DATA1(1'b0       ),
+                .USE_CLEAR      (1'b1       ),
+                .USE_VALID      (1'b1       ),
                 .DEVICE         (DEVICE     ),
                 .SIMULATION     (SIMULATION ),
                 .DEBUG          (DEBUG      ) 

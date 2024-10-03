@@ -13,6 +13,8 @@ module elixirchip_es1_spu_op_lut
             parameter   type                        data_t       = logic [DATA_BITS-1:0]    ,   // データ型指定(オプション)
             parameter   data_t                      CLEAR_DATA   = 'x                       ,   // m_data クリア値
             parameter   data_t  [TABLE_SIZE-1:0]    TABLE_VALUES = '0                       ,   // テーブルデータ
+            parameter   bit                         USE_CLEAR    = 1'b0                     ,   // s_clear 信号を使う場合に1にする
+            parameter   bit                         USE_VALID    = 1'b0                     ,   // s_valid 信号を使う場合に1にする
             parameter                               DEVICE       = "RTL"                    ,   // デバイス名
             parameter                               SIMULATION   = "false"                  ,   // シミュレーション
             parameter                               DEBUG        = "false"                      // デバッグ

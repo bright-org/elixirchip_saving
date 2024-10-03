@@ -6,18 +6,18 @@
 
 module tb_elixirchip_es1_spu_op_add
         #(
-            parameter   int     LATENCY     = 1                     ,   // レイテンシ指定
-            parameter   int     DATA_BITS   = 8                     ,   // データ幅指定
-            parameter   type    data_t      = logic [DATA_BITS-1:0] ,   // データ型指定(オプション)
-            parameter   bit     IMMEDIATE_CARRY  = 1'b1                  ,   // s_carry が即値の場合に1にする
-            parameter   bit     IMMEDIATE_DATA0  = 1'b0                  ,   // s_data0 が即値の場合に1にする(オプション)
-            parameter   bit     IMMEDIATE_DATA1  = 1'b0                  ,   // s_data1 が即値の場合に1にする
-            parameter   data_t  CLEAR_DATA  = '1                    ,   // m_data クリア値
-            parameter   logic   CLEAR_CARRY = '1                    ,   // m_carryクリア値
-            parameter   logic   CLEAR_MSB_C = '0                    ,   // m_msb_c クリア値
-            parameter           DEVICE      = "RTL"                 ,   // デバイス名
-            parameter           SIMULATION  = "false"               ,   // シミュレーション
-            parameter           DEBUG       = "false"                   // デバッグ
+            parameter   int     LATENCY         = 1                     ,   // レイテンシ指定
+            parameter   int     DATA_BITS       = 8                     ,   // データ幅指定
+            parameter   type    data_t          = logic [DATA_BITS-1:0] ,   // データ型指定(オプション)
+            parameter   bit     IMMEDIATE_CARRY = 1'b1                  ,   // s_carry が即値の場合に1にする
+            parameter   bit     IMMEDIATE_DATA0 = 1'b0                  ,   // s_data0 が即値の場合に1にする(オプション)
+            parameter   bit     IMMEDIATE_DATA1 = 1'b0                  ,   // s_data1 が即値の場合に1にする
+            parameter   data_t  CLEAR_DATA      = '1                    ,   // m_data クリア値
+            parameter   logic   CLEAR_CARRY     = '1                    ,   // m_carryクリア値
+            parameter   logic   CLEAR_MSB_C     = '0                    ,   // m_msb_c クリア値
+            parameter           DEVICE          = "RTL"                 ,   // デバイス名
+            parameter           SIMULATION      = "false"               ,   // シミュレーション
+            parameter           DEBUG           = "false"                   // デバッグ
         )
         (
             input   var logic           reset   ,   // 同期リセット(制論理)
@@ -41,18 +41,20 @@ module tb_elixirchip_es1_spu_op_add
 
     elixirchip_es1_spu_op_add
             #(
-                .LATENCY        (LATENCY    ),
-                .DATA_BITS      (DATA_BITS  ),
-                .data_t         (data_t     ),
-                .IMMEDIATE_CARRY     (1'b1       ),
-                .IMMEDIATE_DATA0     (1'b0       ),
-                .IMMEDIATE_DATA1     (1'b0       ),
-                .CLEAR_DATA     (CLEAR_DATA ),
-                .CLEAR_CARRY    (CLEAR_CARRY),
-                .CLEAR_MSB_C    (CLEAR_MSB_C),
-                .DEVICE         (DEVICE     ),
-                .SIMULATION     (SIMULATION ),
-                .DEBUG          (DEBUG      ) 
+                .LATENCY            (LATENCY    ),
+                .DATA_BITS          (DATA_BITS  ),
+                .data_t             (data_t     ),
+                .IMMEDIATE_CARRY    (1'b1       ),
+                .IMMEDIATE_DATA0    (1'b0       ),
+                .IMMEDIATE_DATA1    (1'b0       ),
+                .CLEAR_DATA         (CLEAR_DATA ),
+                .CLEAR_CARRY        (CLEAR_CARRY),
+                .CLEAR_MSB_C        (CLEAR_MSB_C),
+                .USE_CLEAR          (1'b1       ),
+                .USE_VALID          (1'b1       ),
+                .DEVICE             (DEVICE     ),
+                .SIMULATION         (SIMULATION ),
+                .DEBUG              (DEBUG      ) 
             )
         u_elixirchip_es1_spu_op_add
             (
