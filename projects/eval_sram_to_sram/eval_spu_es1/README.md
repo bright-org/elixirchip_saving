@@ -17,7 +17,7 @@ SRAM としては、Block-SRAM などを利用する。
 
 現状 KV260 で 符号なし8bit 整数を 8並列(64bit)で乗算と加算を並べた実験環境である。
 
-随時 ZCU106 なども追加予定。
+KR260 版も作成しているので随時パスなどを読み替えてください。
 
 
 ## 参考にすべきコード
@@ -57,7 +57,6 @@ git submodule update --init --recursive
 
 ## シミュレーション方法
 
-
 ### xsim を使う方法
 
 kv260/sim/tb_top/xsim にて
@@ -68,7 +67,6 @@ make
 
 シミュレーション時間が長いです。
 
-
 ### verilator を使う方法
 
 kv260/sim/tb_top/verilator にて
@@ -76,6 +74,8 @@ kv260/sim/tb_top/verilator にて
 ```
 make
 ```
+
+Segmentation fault を起こす場合が報告されており、その場合、事項の C++ 版だとうまく行く場合があります。
 
 
 ### verilator を C++言語のテストドライバで使う方法
@@ -87,6 +87,7 @@ make
 ```
 
 コンパイル時間が長いです。
+
 
 ## 合成方法
 
@@ -107,7 +108,7 @@ make
 
 まず kv260/app に eval_sram_to_sram_spu_kv260.bit をコピーする
 
-eval_spu64/kv260/app にて
+eval_spu_es1/kv260/app にて
 
 ```
 make run

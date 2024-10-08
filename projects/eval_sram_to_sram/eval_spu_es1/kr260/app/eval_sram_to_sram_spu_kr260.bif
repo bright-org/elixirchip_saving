@@ -1,0 +1,5 @@
+all:
+{
+    eval_sram_to_sram_spu_kr260.bit
+}
+

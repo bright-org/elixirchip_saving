@@ -42,35 +42,35 @@ module elixirchip_es1_xilinx_flipflops
                 if ( RESET_VALUE[i] == 1'b1 ) begin : fdse
                     FDSE
                             #(
-                                .INIT               (RESET_VALUE[i]     ),
-                                .IS_C_INVERTED      (1'b0               ),
-                                .IS_D_INVERTED      (1'b0               ),
-                                .IS_S_INVERTED      (1'b0               )
+                                .INIT               (RESET_VALUE[i] === 1'b1    ),
+                                .IS_C_INVERTED      (1'b0                       ),
+                                .IS_D_INVERTED      (1'b0                       ),
+                                .IS_S_INVERTED      (1'b0                       )
                             )
                         u_FDPE
                             (
-                                .Q                  (dout[i]            ), 
-                                .C                  (clk                ), 
-                                .CE                 (cke                ),
-                                .D                  (din[i]             ), 
-                                .S                  (reset              )
+                                .Q                  (dout[i]                    ), 
+                                .C                  (clk                        ), 
+                                .CE                 (cke                        ),
+                                .D                  (din[i]                     ), 
+                                .S                  (reset                      )
                             );
                 end
                 else begin : fdre
                     FDRE
                             #(
-                                .INIT               (RESET_VALUE[i]     ),
-                                .IS_C_INVERTED      (1'b0               ),
-                                .IS_D_INVERTED      (1'b0               ),
-                                .IS_R_INVERTED      (1'b0               )
+                                .INIT               (RESET_VALUE[i] === 1'b1    ),
+                                .IS_C_INVERTED      (1'b0                       ),
+                                .IS_D_INVERTED      (1'b0                       ),
+                                .IS_R_INVERTED      (1'b0                       )
                             )
                         u_FDRE
                             (
-                                .Q                  (dout[i]            ), 
-                                .C                  (clk                ), 
-                                .CE                 (cke                ),
-                                .D                  (din[i]             ), 
-                                .R                  (reset              )
+                                .Q                  (dout[i]                    ), 
+                                .C                  (clk                        ), 
+                                .CE                 (cke                        ),
+                                .D                  (din[i]                     ), 
+                                .R                  (reset                      )
                             );
                 end
             end
