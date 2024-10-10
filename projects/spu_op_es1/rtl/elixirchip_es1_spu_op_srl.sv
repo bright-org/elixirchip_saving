@@ -14,6 +14,8 @@ module elixirchip_es1_spu_op_srl
             parameter   data_t  CLEAR_DATA      = 'x                      ,   // m_data クリア値
             parameter   bit     IMMEDIATE_SHIFT = 1'b0                    ,   // s_shift が即値の場合に1にする(オプション)
             parameter   bit     IMMEDIATE_DATA  = 1'b0                    ,   // s_data  が即値の場合に1にする(オプション)
+            parameter   bit     USE_CLEAR       = 1'b0                    ,   // s_clear 信号を使う場合に1にする
+            parameter   bit     USE_VALID       = 1'b0                    ,   // s_valid 信号を使う場合に1にする
             parameter           DEVICE          = "RTL"                   ,   // デバイス名
             parameter           SIMULATION      = "false"                 ,   // シミュレーション
             parameter           DEBUG           = "false"                     // デバッグ

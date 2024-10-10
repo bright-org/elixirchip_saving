@@ -131,6 +131,8 @@ module tb_main
                 .DATA_BITS  (DATA_BITS      ),
                 .data_t     (data_t         ),
                 .CLEAR_DATA (CLEAR_DATA     ),
+                .USE_CLEAR  (1'b1           ),
+                .USE_VALID  (1'b1           ),
                 .DEVICE     (DEVICE         ),
                 .SIMULATION (SIMULATION     ),
                 .DEBUG      (DEBUG          ) 

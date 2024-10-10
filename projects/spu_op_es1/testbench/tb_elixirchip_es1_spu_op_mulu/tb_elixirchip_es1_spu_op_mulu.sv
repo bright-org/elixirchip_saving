@@ -49,8 +49,8 @@ module tb_elixirchip_es1_spu_op_mulu
                 .m_data_t       (m_data_t       ),
                 .DATA_SHIFT     (DATA_SHIFT     ),
                 .CLEAR_DATA     (CLEAR_DATA     ),
-                .IMMEDIATE_DATA0     (IMMEDIATE_DATA0     ),
-                .IMMEDIATE_DATA1     (IMMEDIATE_DATA1     ),
+                .IMMEDIATE_DATA0(IMMEDIATE_DATA0),
+                .IMMEDIATE_DATA1(IMMEDIATE_DATA1),
                 .DEVICE         (DEVICE         ),
                 .SIMULATION     (SIMULATION     ),
                 .DEBUG          (DEBUG          )

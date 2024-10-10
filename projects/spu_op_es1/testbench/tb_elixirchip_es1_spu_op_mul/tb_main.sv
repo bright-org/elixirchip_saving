@@ -78,8 +78,8 @@ module tb_main
                 .M_DATA_BITS    (M_DATA_BITS    ),
                 .DATA_SHIFT     (DATA_SHIFT     ),
                 .CLEAR_DATA     (CLEAR_DATA     ),
-                .IMMEDIATE_DATA0     (IMMEDIATE_DATA0     ),
-                .IMMEDIATE_DATA1     (IMMEDIATE_DATA1     ),
+                .IMMEDIATE_DATA0(IMMEDIATE_DATA0),
+                .IMMEDIATE_DATA1(IMMEDIATE_DATA1),
                 .DEVICE         (DEVICE         ),
                 .SIMULATION     (SIMULATION     ),
                 .DEBUG          (DEBUG          )
@@ -162,6 +162,8 @@ module tb_main
                 .m_data_t       (m_data_t       ),
                 .DATA_SHIFT     (DATA_SHIFT     ),
                 .CLEAR_DATA     (CLEAR_DATA     ),
+                .USE_CLEAR      (1'b1           ),
+                .USE_VALID      (1'b1           ),
                 .DEVICE         (DEVICE         ),
                 .SIMULATION     (SIMULATION     ),
                 .DEBUG          (DEBUG          ) 

@@ -9,6 +9,8 @@ module elixirchip_es1_spu_op_all
             parameter   int     DATA_BITS  = 36                     ,   // データ幅指定
             parameter   type    data_t     = logic [DATA_BITS-1:0]  ,   // データ型指定(オプション)
             parameter   logic   CLEAR_DATA = 'x                     ,   // m_data クリア値
+            parameter   bit     USE_CLEAR  = 1'b0                   ,   // s_clear 信号を使う場合に1にする
+            parameter   bit     USE_VALID  = 1'b0                   ,   // s_valid 信号を使う場合に1にする
             parameter           DEVICE     = "RTL"                  ,   // デバイス名
             parameter           SIMULATION = "false"                ,   // シミュレーション
             parameter           DEBUG      = "false"                    // デバッグ
